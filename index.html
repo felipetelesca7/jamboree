@@ -302,7 +302,7 @@ const INICIO = 30901, FIN = 31250;
       <div id="bfil-wrap" style="display:none;margin-bottom:12px">
         <div style="font-size:11px;color:#999;margin-bottom:6px;font-weight:500">Mostrar disponibles para:</div>
         <div class="bfil-row">
-          <button class="bfil on a0" onclick="selBono(0,this)">Todos</button>
+          
           <button class="bfil a1" onclick="selBono(1,this)">Bono 1 · Jul</button>
           <button class="bfil a2" onclick="selBono(2,this)">Bono 2 · Oct</button>
           <button class="bfil a3" onclick="selBono(3,this)">Bono 3 · Feb</button>
@@ -476,9 +476,14 @@ function updateBottomBar(n){
 // ── PACK ──
 function selPack(p){
   modoPack=p; selNum=null;
+  if(p==='ind') filtBono=0; // resetear filtro al cambiar a individual
   document.getElementById('pk-full').classList.toggle('sel',p==='full');
   document.getElementById('pk-ind').classList.toggle('sel',p==='ind');
   document.getElementById('bfil-wrap').style.display = p==='ind'?'block':'none';
+  // en individual, resetear selección de bono visual
+  if(p==='ind'){
+    document.querySelectorAll('.bfil').forEach(x=>x.classList.remove('on'));
+  }
   const btn = document.getElementById('btn1');
   if(btn) btn.classList.remove('off');
   renderGrid();
@@ -498,6 +503,15 @@ function selBono(b,el){
 function renderGrid(){
   const grid=document.getElementById('ngrid');
   if(!grid) return;
+
+  // En modo individual, obligar a elegir bono primero
+  if(modoPack==='ind' && filtBono===0){
+    grid.innerHTML='<div style="grid-column:1/-1;padding:2rem;text-align:center;font-size:13px;color:#aaa;">👆 Elegí un bono arriba para ver los números disponibles</div>';
+    const el=document.getElementById('nums-avail');
+    if(el) el.textContent='';
+    return;
+  }
+
   const busq=(document.getElementById('srchIn')||{}).value||'';
   grid.innerHTML=''; let cnt=0, avail=0;
 
@@ -506,14 +520,13 @@ function renderGrid(){
     const c=completo(n), p=parcial(n);
     let cls='num', dis=false;
     if(modoPack==='full'){
+      // tachado si vendido completo
       if(c){cls+=' vt';dis=true} else {avail++; if(p) cls+=' vb';}
     } else {
-      const ba=filtBono||null;
-      if(ba){
-        if((VENDIDOS[n]||[]).includes(ba)){cls+=' vt';dis=true} else {avail++; if(p) cls+=' vb';}
-      } else {
-        if(c){cls+=' vt';dis=true} else {avail++; if(p) cls+=' vb';}
-      }
+      const ba=filtBono;
+      // tachado si: vendido completo O ese bono específico ya vendido
+      if(c || (VENDIDOS[n]||[]).includes(ba)){cls+=' vt';dis=true}
+      else {avail++; if(p) cls+=' vb';}
     }
     if(selNum===n) cls+=' sel';
     const btn=document.createElement('button');
