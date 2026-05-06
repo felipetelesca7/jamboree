@@ -62,6 +62,8 @@ body{font-family:'Outfit',sans-serif;background:#0b1d4f;color:#111;display:flex;
   border-top:1px solid #eee;
   flex-shrink:0;
   display:flex;flex-direction:column;gap:8px;
+  max-height:55vh;
+  overflow-y:auto;
 }
 
 /* ── SCREENS ── */
@@ -203,7 +205,7 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby7-TKz8i_WBK8TY1-V8
 const SHEETS_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRPK_roeQQ7LG-cZT0CA9kXNDWGFte7hwA5og76Lce8c887OZCRSb7O1N5pXVtZ9FxPwyY2s3F0r0E_/pub?output=csv";
 const MP_FULL    = "https://mpago.la/2QYXd4A";
 const MP_IND     = "https://mpago.la/2PJvmaF";
-const WA_NUMERO  = "59892823980";
+const WA_NUMERO  = "598XXXXXXXXX";
 const INICIO = 30901, FIN = 31250;
 // ─────────────────────────────────────────────────
 </script>
@@ -393,9 +395,10 @@ const INICIO = 30901, FIN = 31250;
         <div id="transf-info" style="display:none;background:#f7f6f2;border-radius:14px;padding:16px;text-align:left;margin-bottom:16px;width:100%">
           <div style="font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#aaa;margin-bottom:12px">Datos para transferencia</div>
           <!-- ✏️ REEMPLAZÁ CON TUS DATOS BANCARIOS -->
-          <div class="cd-row"><span class="cd-label">Banco</span><span class="cd-val">BBVA</span></div>
-          <div class="cd-row"><span class="cd-label">Titular</span><span class="cd-val">Catalina Vaz Martins</span></div>
-          <div class="cd-row"><span class="cd-label">Cuenta</span><span class="cd-val">9773517</span></div>
+          <div class="cd-row"><span class="cd-label">Banco</span><span class="cd-val">TU BANCO</span></div>
+          <div class="cd-row"><span class="cd-label">Titular</span><span class="cd-val">NOMBRE TITULAR</span></div>
+          <div class="cd-row"><span class="cd-label">CI</span><span class="cd-val">X.XXX.XXX-X</span></div>
+          <div class="cd-row"><span class="cd-label">Cuenta</span><span class="cd-val">XXXXXXXX</span></div>
           <div class="cd-row" style="border:none"><span class="cd-label">Monto</span><span class="cd-val" id="transf-monto" style="color:#0b1d4f"></span></div>
           <!-- ✏️ FIN DATOS BANCARIOS -->
         </div>
@@ -507,27 +510,29 @@ function updateBottomBar(n){
     const precio = modoPack==='full' ? '$500' : '$125';
     const paqueteLabel = modoPack==='full'?'Rifa completa ($500)':'Bono '+(filtBono||'?')+' ($125)';
     const waMsg = encodeURIComponent(
-      '🏕️ *Bono Colaboración — Jamboree Polonia 2027*\n\n'+
+      'Hola Feli! Te mando mi comprobante de pago 👇\n\n'+
+      '🏕️ *Bono Colaboración — Jamboree Polonia 2027*\n'+
       '👤 '+nombre+'\n📱 '+telefono+'\n🎟️ #'+selNum+'\n'+
-      '💰 '+paqueteLabel+'\n\n'+
-      'Adjunto comprobante de pago ✅'
+      '💰 '+paqueteLabel
     );
     const waUrl = `https://wa.me/${WA_NUMERO}?text=${waMsg}`;
 
     if(medioPago==='mp'){
       const mpUrl = modoPack==='full' ? MP_FULL : MP_IND;
-      // mostrar info transferencia oculta
       const ti = document.getElementById('transf-info');
       if(ti) ti.style.display='none';
       bb.innerHTML = `
         <a href="${mpUrl}" target="_blank" class="btn btn-mp">
           💳 Pagar con Mercado Pago
         </a>
+        <div style="background:#fff8e8;border-radius:10px;padding:10px 14px;font-size:12px;color:#7a5000;line-height:1.5;text-align:center">
+          Una vez pagado, <strong>enviá el comprobante por WhatsApp</strong>. Cuando lo recibamos nos ponemos en contacto para hacerte llegar el bono físico. 🎟️
+        </div>
         <a href="${waUrl}" target="_blank" class="btn btn-wa">
           📎 Enviar comprobante por WhatsApp
         </a>`;
     } else {
-      // mostrar datos bancarios
+      // mostrar datos bancarios en el content
       const ti = document.getElementById('transf-info');
       if(ti){
         ti.style.display='block';
@@ -535,6 +540,9 @@ function updateBottomBar(n){
         if(tm) tm.textContent = precio;
       }
       bb.innerHTML = `
+        <div style="background:#fff8e8;border-radius:10px;padding:10px 14px;font-size:12px;color:#7a5000;line-height:1.5;text-align:center">
+          📋 Realizá la transferencia con los datos de arriba y <strong>enviá el comprobante por WhatsApp</strong>. Cuando lo recibamos nos ponemos en contacto para hacerte llegar el bono físico. 🎟️
+        </div>
         <a href="${waUrl}" target="_blank" class="btn btn-wa">
           📎 Enviar comprobante por WhatsApp
         </a>`;
