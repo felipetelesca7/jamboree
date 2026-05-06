@@ -94,7 +94,7 @@ body{font-family:'Outfit',sans-serif;background:#0b1d4f;color:#111;display:flex;
   display:flex;align-items:center;justify-content:space-between;
 }
 .pack-card.sel{border-color:#0b1d4f;background:#f0f4ff}
-.pack-card.top-pick{border-color:#0b1d4f}
+
 .pk-badge{background:#0b1d4f;color:#fff;font-size:9px;font-weight:600;padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:5px}
 .pk-name{font-size:15px;font-weight:600}
 .pk-desc{font-size:11px;color:#aaa;margin-top:2px}
@@ -176,6 +176,23 @@ body{font-family:'Outfit',sans-serif;background:#0b1d4f;color:#111;display:flex;
 .status-err.show{display:flex}
 
 svg.ic{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+
+.pago-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+.pago-opt{
+  border:2px solid #eee;border-radius:12px;padding:14px 10px;
+  text-align:center;cursor:pointer;transition:all .15s;
+  background:#fff;
+}
+.pago-opt:hover{border-color:#0b1d4f}
+.pago-opt.sel{border-color:#0b1d4f;background:#f0f4ff}
+.pago-opt-icon{font-size:24px;margin-bottom:4px}
+.pago-opt-name{font-size:12px;font-weight:500;color:#333}
+.pago-opt.sel .pago-opt-name{color:#0b1d4f}
+
+.cd-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f0f0f0;font-size:13px}
+.cd-row:last-child{border-bottom:none}
+.cd-label{color:#999}
+.cd-val{font-weight:600;color:#111}
 </style>
 </head>
 <body>
@@ -279,7 +296,7 @@ const INICIO = 30901, FIN = 31250;
       </div>
 
       <div class="pack-cards">
-        <div class="pack-card top-pick" id="pk-full" onclick="selPack('full')">
+        <div class="pack-card" id="pk-full" onclick="selPack('full')">
           <div>
             <div class="pk-badge">★ Mejor opción</div>
             <div class="pk-name">Rifa completa</div>
@@ -337,7 +354,7 @@ const INICIO = 30901, FIN = 31250;
     <!-- ══ STEP 3: DATOS ══ -->
     <div class="screen" id="s3">
       <div class="step-intro">
-        <p>Registramos tu compra para que quede guardada. <strong>Completá tus datos</strong> y después te llevamos al pago.</p>
+        <p>Registramos tu compra para que quede guardada. <strong>Completá tus datos</strong> y elegí cómo querés pagar.</p>
       </div>
       <div class="resumen-box" id="resumen"></div>
       <div class="inp-group">
@@ -348,6 +365,19 @@ const INICIO = 30901, FIN = 31250;
         <label>Teléfono / WhatsApp</label>
         <input type="tel" id="inp-tel" placeholder="Ej: 099 123 456" oninput="checkDatos()">
       </div>
+      <div class="inp-group">
+        <label>Medio de pago</label>
+        <div class="pago-opts">
+          <div class="pago-opt" id="opt-mp" onclick="selPago('mp')">
+            <div class="pago-opt-icon">💳</div>
+            <div class="pago-opt-name">Mercado Pago</div>
+          </div>
+          <div class="pago-opt" id="opt-transf" onclick="selPago('transf')">
+            <div class="pago-opt-icon">🏦</div>
+            <div class="pago-opt-name">Transferencia</div>
+          </div>
+        </div>
+      </div>
       <div class="status-err" id="st-err">⚠️ No se pudo registrar. Intentá de nuevo.</div>
     </div>
 
@@ -356,8 +386,19 @@ const INICIO = 30901, FIN = 31250;
       <div class="confirm-box">
         <span class="confirm-icon">✅</span>
         <div class="confirm-title">¡Registrado!</div>
-        <div class="confirm-sub">Tu compra quedó guardada. Ahora completá el pago para confirmar tu número.</div>
+        <div class="confirm-sub">Tu compra quedó guardada. Completá el pago y enviá el comprobante por WhatsApp.</div>
         <div class="confirm-detail" id="confirm-detail"></div>
+
+        <!-- TRANSFERENCIA INFO -->
+        <div id="transf-info" style="display:none;background:#f7f6f2;border-radius:14px;padding:16px;text-align:left;margin-bottom:16px;width:100%">
+          <div style="font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#aaa;margin-bottom:12px">Datos para transferencia</div>
+          <!-- ✏️ REEMPLAZÁ CON TUS DATOS BANCARIOS -->
+          <div class="cd-row"><span class="cd-label">Banco</span><span class="cd-val">BBVA</span></div>
+          <div class="cd-row"><span class="cd-label">Titular</span><span class="cd-val">Catalina Vaz Martins</span></div>
+          <div class="cd-row"><span class="cd-label">Cuenta</span><span class="cd-val">9773517</span></div>
+          <div class="cd-row" style="border:none"><span class="cd-label">Monto</span><span class="cd-val" id="transf-monto" style="color:#0b1d4f"></span></div>
+          <!-- ✏️ FIN DATOS BANCARIOS -->
+        </div>
       </div>
     </div>
 
@@ -372,7 +413,7 @@ const INICIO = 30901, FIN = 31250;
 
 <script>
 let modoPack = 'full', filtBono = 0, selNum = null;
-let nombre = '', telefono = '';
+let nombre = '', telefono = '', medioPago = '';
 let VENDIDOS = {}; // se carga desde Sheets
 let currentStep = 1;
 let enviando = false;
@@ -463,20 +504,41 @@ function updateBottomBar(n){
       </button>
       <button class="btn btn-back" onclick="goStep(2)">← Volver</button>`;
   } else if(n===4){
-    const mpUrl = modoPack==='full' ? MP_FULL : MP_IND;
+    const precio = modoPack==='full' ? '$500' : '$125';
+    const paqueteLabel = modoPack==='full'?'Rifa completa ($500)':'Bono '+(filtBono||'?')+' ($125)';
     const waMsg = encodeURIComponent(
       '🏕️ *Bono Colaboración — Jamboree Polonia 2027*\n\n'+
       '👤 '+nombre+'\n📱 '+telefono+'\n🎟️ #'+selNum+'\n'+
-      '💰 '+(modoPack==='full'?'Rifa completa ($500)':'Bono '+(filtBono||'?')+' ($125)')+'\n\n'+
-      '¡Gracias por apoyar el viaje a Polonia! 🇵🇱'
+      '💰 '+paqueteLabel+'\n\n'+
+      'Adjunto comprobante de pago ✅'
     );
-    bb.innerHTML = `
-      <a href="${mpUrl}" target="_blank" class="btn btn-mp">
-        💳 Pagar con Mercado Pago
-      </a>
-      <a href="https://wa.me/${WA_NUMERO}?text=${waMsg}" target="_blank" class="btn btn-wa">
-        💬 Reservar por WhatsApp
-      </a>`;
+    const waUrl = `https://wa.me/${WA_NUMERO}?text=${waMsg}`;
+
+    if(medioPago==='mp'){
+      const mpUrl = modoPack==='full' ? MP_FULL : MP_IND;
+      // mostrar info transferencia oculta
+      const ti = document.getElementById('transf-info');
+      if(ti) ti.style.display='none';
+      bb.innerHTML = `
+        <a href="${mpUrl}" target="_blank" class="btn btn-mp">
+          💳 Pagar con Mercado Pago
+        </a>
+        <a href="${waUrl}" target="_blank" class="btn btn-wa">
+          📎 Enviar comprobante por WhatsApp
+        </a>`;
+    } else {
+      // mostrar datos bancarios
+      const ti = document.getElementById('transf-info');
+      if(ti){
+        ti.style.display='block';
+        const tm = document.getElementById('transf-monto');
+        if(tm) tm.textContent = precio;
+      }
+      bb.innerHTML = `
+        <a href="${waUrl}" target="_blank" class="btn btn-wa">
+          📎 Enviar comprobante por WhatsApp
+        </a>`;
+    }
   }
 }
 
@@ -562,11 +624,18 @@ function pickNum(n){
 }
 
 // ── DATOS ──
+function selPago(tipo){
+  medioPago = tipo;
+  document.querySelectorAll('.pago-opt').forEach(x=>x.classList.remove('sel'));
+  document.getElementById('opt-'+tipo).classList.add('sel');
+  checkDatos();
+}
+
 function checkDatos(){
   nombre=document.getElementById('inp-nombre').value.trim();
   telefono=document.getElementById('inp-tel').value.trim();
   const btn=document.getElementById('btn3');
-  if(btn) btn.classList.toggle('off',!nombre||!telefono);
+  if(btn) btn.classList.toggle('off',!nombre||!telefono||!medioPago);
 }
 
 // ── RESUMEN ──
@@ -602,7 +671,8 @@ async function confirmarYPagar(){
   const payload={
     nombre, telefono, numero:selNum,
     paquete: modoPack==='full'?'Rifa completa ($500)':'Bono individual ($125)',
-    bono: modoPack==='ind'?(filtBono||'sin especificar'):'Todos (1,2,3,4)'
+    bono: modoPack==='ind'?(filtBono||'sin especificar'):'Todos (1,2,3,4)',
+    medioPago: medioPago==='mp'?'Mercado Pago':'Transferencia'
   };
 
   try {
