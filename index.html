@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rifas Jamboree Polonia 2027</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',sans-serif;background:#eceae4;color:#111;min-height:100vh}
+
+.hero{background:#0b1d4f;padding:2rem 1.5rem 2.5rem;text-align:center;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 20% 30%,rgba(255,210,0,.07) 0%,transparent 60%),radial-gradient(ellipse 50% 50% at 80% 70%,rgba(255,255,255,.04) 0%,transparent 60%);pointer-events:none}
+.hero-wave{position:absolute;bottom:-1px;left:0;right:0;display:block;width:100%;height:28px}
+.badge-uy{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.7);font-size:11px;letter-spacing:1px;padding:4px 12px;border-radius:20px;margin-bottom:14px}
+.emblem{display:flex;justify-content:center;margin-bottom:14px}
+.hero h1{color:#fff;font-size:24px;font-weight:600;line-height:1.25;margin-bottom:4px}
+.hero h1 span{color:#ffd200}
+.hero-sub{color:rgba(255,255,255,.45);font-size:12px;letter-spacing:1px;text-transform:uppercase;margin-bottom:1.5rem}
+.prog-row{display:flex;justify-content:space-between;margin-bottom:5px}
+.prog-row span{color:rgba(255,255,255,.4);font-size:11px}
+.prog-row strong{color:#ffd200;font-size:12px}
+.prog-wrap{background:rgba(255,255,255,.1);border-radius:99px;height:5px;overflow:hidden;margin-bottom:1.8rem}
+.prog-bar{height:100%;border-radius:99px;background:linear-gradient(90deg,#ffd200,#f0a000);width:0%;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+
+.card{background:#fff;border-radius:20px;margin:10px;padding:1.25rem}
+.sec-label{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:#bbb;margin-bottom:14px}
+
+.premios-list{display:flex;flex-direction:column;gap:8px}
+.premio{border-radius:13px;overflow:hidden;border:1.5px solid #f0f0f0;display:flex;align-items:stretch}
+.premio-color{width:5px;flex-shrink:0}
+.p1 .premio-color{background:#d93025}.p2 .premio-color{background:#1a56a8}
+.p3 .premio-color{background:#c8930a}.p4 .premio-color{background:#1a7a3a}
+.premio-body{padding:11px 13px;flex:1}
+.premio-bono{font-size:10px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;color:#bbb;margin-bottom:3px}
+.pbadge{font-size:9px;padding:1px 6px;border-radius:4px;font-weight:600;letter-spacing:.5px}
+.p1 .pbadge{background:#fde8e8;color:#c0241c}.p2 .pbadge{background:#e8f0fe;color:#1a56a8}
+.p3 .pbadge{background:#fef3cd;color:#9a6e00}.p4 .pbadge{background:#e8f5ec;color:#1a7a3a}
+.premio-item{font-size:14px;font-weight:600;color:#111;line-height:1.25;margin-bottom:4px}
+.premio-fecha{font-size:12px;color:#888;margin-bottom:3px}
+.premio-nota{font-size:10px;color:#bbb;line-height:1.4}
+
+.mecanica-box{background:#f7f6f2;border-radius:12px;padding:12px 14px;font-size:12px;color:#666;line-height:1.6;margin-top:12px}
+.mecanica-box strong{color:#0b1d4f;font-weight:600}
+
+.bonos-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.bono{border:1.5px solid #f0f0f0;border-radius:12px;padding:10px 12px;position:relative;overflow:hidden}
+.bono::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.b1::before{background:#d93025}.b2::before{background:#1a56a8}.b3::before{background:#c8930a}.b4::before{background:#1a7a3a}
+.bono-lbl{font-size:10px;color:#ccc;margin-bottom:2px;display:flex;align-items:center;gap:4px}
+.dot{width:5px;height:5px;border-radius:50%}
+.b1 .dot{background:#d93025}.b2 .dot{background:#1a56a8}.b3 .dot{background:#c8930a}.b4 .dot{background:#1a7a3a}
+.bono-fecha{font-size:12px;font-weight:500}
+.bono-avail{font-size:10px;font-weight:500;margin-top:4px}
+
+.pack{border:2px solid #eee;border-radius:14px;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:all .15s;margin-bottom:8px}
+.pack:last-child{margin-bottom:0}
+.pack.top{border-color:#0b1d4f}
+.pk-badge{background:#0b1d4f;color:#fff;font-size:9px;font-weight:500;letter-spacing:.5px;padding:2px 7px;border-radius:4px;margin-bottom:4px;display:inline-block}
+.pk-name{font-size:14px;font-weight:500}
+.pk-desc{font-size:11px;color:#aaa}
+.pk-price{font-size:26px;font-weight:600;color:#0b1d4f;white-space:nowrap}
+.pack.sel{background:#0b1d4f;border-color:#0b1d4f}
+.pack.sel .pk-name,.pack.sel .pk-desc,.pack.sel .pk-price{color:#fff}
+.pack.sel .pk-badge{background:#ffd200;color:#0b1d4f}
+
+.bfil-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.bfil{font-size:11px;padding:4px 10px;border-radius:20px;border:1px solid #e5e5e5;background:#fff;color:#777;cursor:pointer;transition:all .12s}
+.bfil.on{color:#fff;border-color:transparent}
+.bfil.on.a0{background:#0b1d4f}.bfil.on.a1{background:#d93025}
+.bfil.on.a2{background:#1a56a8}.bfil.on.a3{background:#c8930a}.bfil.on.a4{background:#1a7a3a}
+
+.srch{position:relative;margin-bottom:10px}
+.srch svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#ccc;width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.srch input{width:100%;padding:9px 12px 9px 33px;border:1.5px solid #eee;border-radius:9px;font-size:13px;font-family:'Outfit',sans-serif;background:#fafafa;color:#111;outline:none;transition:border-color .15s}
+.srch input:focus{border-color:#0b1d4f;background:#fff}
+
+.ngrid{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;max-height:240px;overflow-y:auto;margin-bottom:10px}
+.ngrid::-webkit-scrollbar{width:3px}
+.ngrid::-webkit-scrollbar-thumb{background:#ddd;border-radius:2px}
+.num{padding:6px 2px;font-size:11px;font-weight:500;border-radius:7px;border:1px solid #eee;background:#fff;color:#111;cursor:pointer;text-align:center;transition:all .1s;user-select:none}
+.num:hover:not(.vt):not(.vb){border-color:#0b1d4f;color:#0b1d4f}
+.num.sel{background:#0b1d4f;color:#fff;border-color:#0b1d4f}
+.num.vt{background:#f5f5f5;color:#ccc;text-decoration:line-through;cursor:default;border-color:transparent}
+.num.vb{background:#fffbee;color:#b87800;border-color:#ffe080}
+.num.vb:hover{background:#fff5cc}
+.empty{grid-column:1/-1;padding:2rem;text-align:center;font-size:13px;color:#ccc}
+
+.ley{display:flex;gap:10px;flex-wrap:wrap;font-size:11px;color:#aaa;margin-bottom:14px}
+.ldot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:3px;vertical-align:middle}
+
+.sel-box{background:#f7f6f2;border-radius:10px;padding:10px 14px;font-size:13px;color:#aaa;margin-bottom:12px;display:flex;align-items:center;gap:8px;min-height:42px}
+.sel-box strong{color:#0b1d4f}
+
+.form-wrap{display:none}
+.form-sep{height:1px;background:#f0f0f0;margin:14px 0}
+.form-title{font-size:13px;font-weight:500;color:#111;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.inp-row{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.inp-group label{font-size:11px;font-weight:500;color:#888;display:block;margin-bottom:4px;letter-spacing:.5px}
+.inp-group input{width:100%;padding:10px 12px;border:1.5px solid #eee;border-radius:9px;font-size:14px;font-family:'Outfit',sans-serif;color:#111;outline:none;transition:border-color .15s;background:#fafafa}
+.inp-group input:focus{border-color:#0b1d4f;background:#fff}
+
+/* Estado del envío */
+.status-box{border-radius:10px;padding:10px 14px;font-size:13px;margin-bottom:12px;display:none;align-items:center;gap:8px}
+.status-box.ok{background:#e8f5ec;color:#1a7a3a;display:flex}
+.status-box.err{background:#fde8e8;color:#c0241c;display:flex}
+.status-box.loading{background:#f0f4ff;color:#1a56a8;display:flex}
+
+.btn-mp{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;border:none;border-radius:12px;background:#009ee3;color:#fff;font-size:15px;font-weight:500;font-family:'Outfit',sans-serif;cursor:pointer;text-decoration:none;transition:opacity .15s;margin-bottom:8px}
+.btn-mp:hover{opacity:.88}
+.btn-mp.off{opacity:.3;pointer-events:none}
+.btn-note{font-size:11px;color:#bbb;text-align:center}
+.btn-wa{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border:none;border-radius:12px;background:#25D366;color:#fff;font-size:14px;font-weight:500;font-family:'Outfit',sans-serif;cursor:pointer;text-decoration:none;transition:opacity .15s}
+.btn-wa:hover{opacity:.88}
+
+svg.ic{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle;flex-shrink:0}
+</style>
+</head>
+<body>
+
+<script>
+// ── CONFIGURACIÓN ──────────────────────────────────
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwuzebNrGHSeJ29pBAmTpqRgPfqDnx0FuYGY6HYjSWzevch2sNnoOBte1risILl_8im/exec";
+const MP_FULL    = "https://mpago.la/2QYXd4A";   // $500 — rifa completa
+const MP_IND     = "https://mpago.la/2PJvmaF";   // $125 — bono individual
+const WA_NUMERO  = "59892823980";               // ← reemplazá con el número real
+
+// Números ya vendidos — actualizá acá cuando vendas
+// Formato: numero: [lista de bonos vendidos]
+// Rifa completa = [1,2,3,4]  |  Solo bono 2 = [2]
+const VENDIDOS = {
+  30905:[1,2,3,4],
+  30912:[1],
+  30933:[1,2,3,4],
+  30947:[2,3],
+  30961:[1,2,3,4],
+  30980:[4],
+  31002:[1,2,3,4],
+  31045:[3],
+  31067:[1,2,3,4],
+};
+// ───────────────────────────────────────────────────
+</script>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="badge-uy">🇺🇾 Delegación Uruguaya</div>
+  <div class="emblem">
+    <svg width="88" height="88" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="44" cy="44" r="42" stroke="#ffd200" stroke-width=".8" stroke-opacity=".3"/>
+      <path d="M44 8 C40 17 35 21 35 30 C35 37 39 42 44 42 C49 42 53 37 53 30 C53 21 48 17 44 8Z" fill="#ffd200"/>
+      <path d="M44 14 C42 20 40 23 40 30 C40 34 42 38 44 39 C46 38 48 34 48 30 C48 23 46 20 44 14Z" fill="#0b1d4f" fill-opacity=".4"/>
+      <path d="M8 46 C16 42 21 40 28 42 C33 44 36 47 36 51 C36 55 33 57 28 57 C21 58 14 55 8 46Z" fill="#ffd200"/>
+      <path d="M80 46 C72 42 67 40 60 42 C55 44 52 47 52 51 C52 55 55 57 60 57 C67 58 74 55 80 46Z" fill="#ffd200"/>
+      <rect x="41" y="56" width="6" height="18" rx="2" fill="#ffd200"/>
+      <path d="M36 66 C33 71 30 75 28 80 L35 80 C37 76 39 72 41 68Z" fill="#ffd200"/>
+      <path d="M52 66 C55 71 58 75 60 80 L53 80 C51 76 49 72 47 68Z" fill="#ffd200"/>
+      <rect x="33" y="74" width="22" height="5" rx="2.5" fill="#ffd200"/>
+      <circle cx="44" cy="50" r="9" fill="#ffd200"/>
+      <circle cx="44" cy="50" r="6.5" fill="#0b1d4f"/>
+      <circle cx="44" cy="50" r="3" fill="#ffd200"/>
+      <text x="44" y="87" text-anchor="middle" font-family="Outfit,sans-serif" font-size="6" font-weight="600" fill="#ffd200" fill-opacity=".7" letter-spacing="1.8">POLAND 2027</text>
+    </svg>
+  </div>
+  <h1>Bono Colaboración<br><span>Jamboree Mundial Scout</span></h1>
+  <p class="hero-sub">XXVI WSJ · Gdańsk · 30 Jul – 8 Ago 2027</p>
+  <div class="prog-row">
+    <span id="prog-txt">Cargando...</span>
+    <strong id="prog-pct">0%</strong>
+  </div>
+  <div class="prog-wrap"><div class="prog-bar" id="progBar"></div></div>
+  <svg class="hero-wave" viewBox="0 0 390 28" fill="none" preserveAspectRatio="none">
+    <path d="M0 28 Q97 0 195 14 Q293 28 390 0 L390 28Z" fill="#eceae4"/>
+  </svg>
+</div>
+
+<!-- PREMIOS -->
+<div class="card">
+  <div class="sec-label">Premios por sorteo</div>
+  <div class="premios-list">
+    <div class="premio p1">
+      <div class="premio-color"></div>
+      <div class="premio-body">
+        <div class="premio-bono"><span class="pbadge">Bono 1</span></div>
+        <div class="premio-item">📺 Smart TV 55" Panasonic</div>
+        <div class="premio-fecha">Sorteo: <strong>Julio 2026</strong></div>
+        <div class="premio-nota">Entrega coordinada con el ganador</div>
+      </div>
+    </div>
+    <div class="premio p2">
+      <div class="premio-color"></div>
+      <div class="premio-body">
+        <div class="premio-bono"><span class="pbadge">Bono 2</span></div>
+        <div class="premio-item">💻 Notebook PANAVOX i5 16GB/512GB</div>
+        <div class="premio-fecha">Sorteo: <strong>Octubre 2026</strong></div>
+        <div class="premio-nota">Entrega en Casa Scout, Martínez Trueba 1187, semana posterior al sorteo</div>
+      </div>
+    </div>
+    <div class="premio p3">
+      <div class="premio-color"></div>
+      <div class="premio-body">
+        <div class="premio-bono"><span class="pbadge">Bono 3</span></div>
+        <div class="premio-item">🛴 Scooter Eléctrico Xiaomi Elite</div>
+        <div class="premio-fecha">Sorteo: <strong>Febrero 2027</strong></div>
+        <div class="premio-nota">Entrega en Casa Scout, Martínez Trueba 1187, semana posterior al sorteo</div>
+      </div>
+    </div>
+    <div class="premio p4">
+      <div class="premio-color"></div>
+      <div class="premio-body">
+        <div class="premio-bono"><span class="pbadge">Bono 4</span></div>
+        <div class="premio-item">🚲 Bicicleta Eléctrica S-Pro Mob 700</div>
+        <div class="premio-fecha">Sorteo: <strong>Junio 2027</strong></div>
+        <div class="premio-nota">Entrega en Casa Scout, Martínez Trueba 1187, semana posterior al sorteo</div>
+      </div>
+    </div>
+  </div>
+  <div class="mecanica-box">
+    <strong>¿Cómo funciona?</strong> El poseedor del bono cuyas <strong>5 cifras coincidan con el 1.er premio de la Lotería Uruguaya</strong> del mes correspondiente se hace acreedor del premio.
+  </div>
+</div>
+
+<!-- DISPONIBILIDAD -->
+<div class="card">
+  <div class="sec-label">Disponibilidad por sorteo</div>
+  <div class="bonos-grid">
+    <div class="bono b1"><div class="bono-lbl"><span class="dot"></span>Bono 1</div><div class="bono-fecha">Julio 2026</div><div class="bono-avail" id="bst1"></div></div>
+    <div class="bono b2"><div class="bono-lbl"><span class="dot"></span>Bono 2</div><div class="bono-fecha">Octubre 2026</div><div class="bono-avail" id="bst2"></div></div>
+    <div class="bono b3"><div class="bono-lbl"><span class="dot"></span>Bono 3</div><div class="bono-fecha">Febrero 2027</div><div class="bono-avail" id="bst3"></div></div>
+    <div class="bono b4"><div class="bono-lbl"><span class="dot"></span>Bono 4</div><div class="bono-fecha">Junio 2027</div><div class="bono-avail" id="bst4"></div></div>
+  </div>
+</div>
+
+<!-- PACKS -->
+<div class="card">
+  <div class="sec-label">¿Cuánto querés comprar?</div>
+  <div class="pack top" id="pk-full" onclick="selPack('full')">
+    <div><div class="pk-badge">★ Mejor opción</div><div class="pk-name">Rifa completa</div><div class="pk-desc">Los 4 bonos · 4 chances de ganar</div></div>
+    <div class="pk-price">$500</div>
+  </div>
+  <div class="pack" id="pk-ind" onclick="selPack('ind')">
+    <div><div class="pk-name">Bono individual</div><div class="pk-desc">Elegís el sorteo que preferís</div></div>
+    <div class="pk-price">$125</div>
+  </div>
+</div>
+
+<!-- NÚMEROS -->
+<div class="card">
+  <div class="sec-label">Elegí tu número (30901–31250)</div>
+  <div id="fbwrap" style="display:none;margin-bottom:12px">
+    <div style="font-size:11px;color:#ccc;margin-bottom:6px">Mostrar disponibles para:</div>
+    <div class="bfil-row">
+      <button class="bfil on a0" onclick="selBono(0,this)">Todos</button>
+      <button class="bfil a1" onclick="selBono(1,this)">Bono 1 · Jul</button>
+      <button class="bfil a2" onclick="selBono(2,this)">Bono 2 · Oct</button>
+      <button class="bfil a3" onclick="selBono(3,this)">Bono 3 · Feb</button>
+      <button class="bfil a4" onclick="selBono(4,this)">Bono 4 · Jun</button>
+    </div>
+  </div>
+  <div class="srch">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="number" id="srchIn" placeholder="Buscar número exacto..." min="30901" max="31250" oninput="renderGrid()">
+  </div>
+  <div class="ngrid" id="ngrid"></div>
+  <div class="ley">
+    <span><span class="ldot" style="background:#fff;border:1px solid #ddd"></span>Disponible</span>
+    <span><span class="ldot" style="background:#0b1d4f"></span>Elegido</span>
+    <span><span class="ldot" style="background:#f5f5f5"></span>Vendido</span>
+    <span><span class="ldot" style="background:#fffbee;border:1px solid #ffe080"></span>Parcial</span>
+  </div>
+
+  <div class="sel-box" id="selBox">
+    <svg class="ic" style="color:#ddd" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+    <span>Seleccioná un número para continuar</span>
+  </div>
+
+  <!-- FORMULARIO -->
+  <div class="form-wrap" id="formWrap">
+    <div class="form-sep"></div>
+    <div class="form-title">
+      <svg class="ic" style="color:#0b1d4f" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Tus datos para registrar la rifa
+    </div>
+    <div class="inp-row">
+      <div class="inp-group">
+        <label>NOMBRE COMPLETO</label>
+        <input type="text" id="inp-nombre" placeholder="Ej: María González" oninput="checkForm()">
+      </div>
+      <div class="inp-group">
+        <label>TELÉFONO / WHATSAPP</label>
+        <input type="tel" id="inp-tel" placeholder="Ej: 099 123 456" oninput="checkForm()">
+      </div>
+    </div>
+  </div>
+
+  <!-- STATUS -->
+  <div class="status-box" id="statusBox"></div>
+
+  <a href="#" id="btnMP" class="btn-mp off" onclick="handlePago(event)">
+    <svg class="ic" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+    Pagar con Mercado Pago
+  </a>
+  <p class="btn-note">Tu compra queda registrada automáticamente</p>
+</div>
+
+<!-- WHATSAPP -->
+<div class="card" style="margin-bottom:1.5rem">
+  <div class="sec-label">¿Preferís reservar primero?</div>
+  <a class="btn-wa" id="btnWA" href="#" target="_blank">
+    <svg class="ic" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    Reservar por WhatsApp
+  </a>
+  <p style="font-size:11px;color:#bbb;text-align:center;margin-top:8px">Reservá tu número y pagás cuando puedas</p>
+</div>
+
+<script>
+const INICIO=30901, FIN=31250;
+let selNum=null, modoPack='full', filtBono=0, enviando=false;
+
+function libres(n){return[1,2,3,4].filter(b=>!(VENDIDOS[n]||[]).includes(b))}
+function completo(n){return libres(n).length===0}
+function parcial(n){const v=VENDIDOS[n]||[];return v.length>0&&v.length<4}
+
+function updateProgress(){
+  let tot=0;
+  for(let n=INICIO;n<=FIN;n++) tot+=(VENDIDOS[n]||[]).length;
+  const total=(FIN-INICIO+1)*4;
+  const pct=Math.round(tot/total*100);
+  document.getElementById('progBar').style.width=pct+'%';
+  document.getElementById('prog-pct').textContent=pct+'%';
+  document.getElementById('prog-txt').textContent=tot+' de '+total+' bonos vendidos';
+  for(let b=1;b<=4;b++){
+    let vb=0;
+    for(let n=INICIO;n<=FIN;n++) if((VENDIDOS[n]||[]).includes(b)) vb++;
+    const lib=(FIN-INICIO+1)-vb;
+    const el=document.getElementById('bst'+b);
+    el.textContent=lib+' disponibles';
+    el.style.color=lib<80?'#c8930a':'#1a7a3a';
+  }
+}
+
+function selPack(p){
+  modoPack=p; selNum=null;
+  document.getElementById('pk-full').classList.toggle('sel',p==='full');
+  document.getElementById('pk-ind').classList.toggle('sel',p==='ind');
+  document.getElementById('fbwrap').style.display=p==='ind'?'block':'none';
+  updateUI(); renderGrid();
+}
+
+function selBono(b,el){
+  filtBono=b; selNum=null;
+  document.querySelectorAll('.bfil').forEach(x=>x.classList.remove('on'));
+  el.classList.add('on');
+  updateUI(); renderGrid();
+}
+
+function renderGrid(){
+  const grid=document.getElementById('ngrid');
+  const busq=document.getElementById('srchIn').value.trim();
+  grid.innerHTML=''; let cnt=0;
+  for(let n=INICIO;n<=FIN;n++){
+    if(busq&&!String(n).includes(busq)) continue;
+    const c=completo(n), p=parcial(n);
+    let cls='num', dis=false;
+    if(modoPack==='full'){
+      if(c){cls+=' vt';dis=true} else if(p) cls+=' vb';
+    } else {
+      const ba=filtBono||null;
+      if(ba){
+        if((VENDIDOS[n]||[]).includes(ba)){cls+=' vt';dis=true} else if(p) cls+=' vb';
+      } else {
+        if(c){cls+=' vt';dis=true} else if(p) cls+=' vb';
+      }
+    }
+    if(selNum===n) cls+=' sel';
+    const btn=document.createElement('button');
+    btn.className=cls; btn.textContent=n;
+    btn.title=c?'Vendido':p?'Bonos libres: '+libres(n).join(', '):'Disponible';
+    if(!dis) btn.onclick=()=>pickNum(n);
+    grid.appendChild(btn); cnt++;
+  }
+  if(!cnt){const d=document.createElement('div');d.className='empty';d.textContent='Sin resultados';grid.appendChild(d)}
+}
+
+function pickNum(n){
+  selNum=selNum===n?null:n;
+  renderGrid(); updateUI();
+  hideStatus();
+}
+
+function updateUI(){
+  const box=document.getElementById('selBox');
+  const fw=document.getElementById('formWrap');
+  const btn=document.getElementById('btnMP');
+  if(!selNum){
+    box.innerHTML='<svg class="ic" style="color:#ddd" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg><span>Seleccioná un número para continuar</span>';
+    fw.style.display='none'; btn.classList.add('off'); return;
+  }
+  const bonoTxt=modoPack==='ind'&&filtBono?' — Bono '+filtBono:(modoPack==='full'?' — 4 bonos':'');
+  const precio=modoPack==='full'?'$500 · Rifa completa':'$125 · Bono '+(filtBono||'?');
+  box.innerHTML='<svg class="ic" style="color:#1a7a3a" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Número <strong>#'+selNum+'</strong>'+bonoTxt+' · <strong>'+precio+'</strong></span>';
+  fw.style.display='block'; checkForm();
+}
+
+function checkForm(){
+  const nombre=document.getElementById('inp-nombre').value.trim();
+  const tel=document.getElementById('inp-tel').value.trim();
+  const btn=document.getElementById('btnMP');
+  if(!selNum||!nombre||!tel){btn.classList.add('off');return}
+  btn.classList.remove('off');
+  // Actualizar WA con datos
+  const msg=encodeURIComponent(
+    '🏕️ *Bono Colaboración — Jamboree Polonia 2027*\n\n'+
+    '👤 Nombre: '+nombre+'\n📱 Teléfono: '+tel+'\n'+
+    '🎟️ Número: #'+selNum+'\n'+
+    '💰 Paquete: '+(modoPack==='full'?'Rifa completa ($500)':'Bono '+(filtBono||'?')+' ($125)')+'\n\n'+
+    '¡Gracias por apoyar el viaje a Polonia! 🇵🇱'
+  );
+  document.getElementById('btnWA').href='https://wa.me/'+WA_NUMERO+'?text='+msg;
+}
+
+function showStatus(tipo, texto){
+  const s=document.getElementById('statusBox');
+  s.className='status-box '+tipo;
+  s.innerHTML=texto;
+  s.style.display='flex';
+}
+function hideStatus(){
+  const s=document.getElementById('statusBox');
+  s.style.display='none'; s.className='status-box';
+}
+
+async function handlePago(e){
+  e.preventDefault();
+  if(enviando) return;
+  const nombre=document.getElementById('inp-nombre').value.trim();
+  const tel=document.getElementById('inp-tel').value.trim();
+  if(!selNum||!nombre||!tel) return;
+
+  enviando=true;
+  const btn=document.getElementById('btnMP');
+  btn.classList.add('off');
+  showStatus('loading','⏳ Registrando tu compra...');
+
+  const payload={
+    nombre, telefono:tel, numero:selNum,
+    paquete: modoPack==='full'?'Rifa completa ($500)':'Bono individual ($125)',
+    bono: modoPack==='ind'? (filtBono||'sin especificar') : 'Todos (1,2,3,4)'
+  };
+
+  try {
+    await fetch(SCRIPT_URL, {
+      method:'POST', mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+    showStatus('ok','✅ ¡Registrado! Ahora completá el pago.');
+    // Abrir Mercado Pago
+    const mpUrl = modoPack==='full' ? MP_FULL : MP_IND;
+    setTimeout(()=>{ window.open(mpUrl,'_blank'); enviando=false; btn.classList.remove('off'); }, 800);
+  } catch(err){
+    showStatus('err','⚠️ No se pudo registrar. Contactanos por WhatsApp.');
+    enviando=false; btn.classList.remove('off');
+  }
+}
+
+// WA default
+document.getElementById('btnWA').href='https://wa.me/'+WA_NUMERO+'?text='+encodeURIComponent('Hola! Quiero comprar una rifa para el Jamboree Polonia 2027 🇵🇱🏕️');
+updateProgress(); renderGrid(); setTimeout(updateProgress,400);
+</script>
+</body>
+</html>
