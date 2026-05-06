@@ -382,26 +382,33 @@ async function cargarVendidos(){
   try {
     const r = await fetch(SHEETS_CSV + '&t=' + Date.now());
     const txt = await r.text();
-    const rows = txt.trim().split('\n').slice(1); // saltar encabezado
+    // Parsear CSV respetando comas dentro de comillas
+    const rows = txt.trim().split('\n').slice(1);
     const v = {};
     rows.forEach(row => {
+      // split simple por coma — funciona para nuestro formato
       const cols = row.split(',');
-      // cols: Fecha, Nombre, Telefono, Numero, Paquete, Bono, Estado
-      const num = parseInt(cols[3]);
-      const paquete = (cols[4]||'').toLowerCase();
-      const bono = (cols[5]||'').trim();
+      // cols: 0=Fecha, 1=Nombre, 2=Telefono, 3=Numero, 4=Paquete, 5=Bono, 6=Estado
+      const num = parseInt((cols[3]||'').trim());
       if (!num || num < INICIO || num > FIN) return;
       if (!v[num]) v[num] = [];
-      if (paquete.includes('completa') || bono.includes('1,2,3,4') || bono.includes('Todos')) {
+
+      const paquete = (cols[4]||'').toLowerCase().trim();
+      const bono    = (cols[5]||'').trim();
+
+      if (paquete.includes('completa') || bono.toLowerCase().includes('todos') || bono.includes('1,2,3,4')) {
+        // Rifa completa — marcar todos los bonos
         v[num] = [1,2,3,4];
       } else {
+        // Bono individual — marcar solo ese bono (ej: "1", "2", "3", "4")
         const b = parseInt(bono);
         if (b >= 1 && b <= 4 && !v[num].includes(b)) v[num].push(b);
       }
     });
     VENDIDOS = v;
+    console.log('Vendidos cargados:', VENDIDOS);
   } catch(e) {
-    console.warn('No se pudo cargar Sheets, mostrando todos disponibles');
+    console.warn('No se pudo cargar Sheets:', e);
     VENDIDOS = {};
   }
   renderGrid();
