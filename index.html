@@ -9,15 +9,36 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden}
 body{font-family:'Outfit',sans-serif;background:#0b1d4f;color:#111;display:flex;flex-direction:column}
+
+/* ── WIZARD SHELL ── */
 .shell{display:flex;flex-direction:column;height:100vh;max-width:480px;margin:0 auto;width:100%}
-.topbar{background:#0b1d4f;padding:14px 20px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+
+/* ── TOP BAR ── */
+.topbar{
+  background:#0b1d4f;
+  padding:14px 20px 12px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+}
 .topbar-logo{display:flex;align-items:center;gap:10px}
 .topbar-title{color:#fff;font-size:13px;font-weight:500;line-height:1.2}
 .topbar-title small{color:rgba(255,255,255,.45);font-size:11px;font-weight:400;display:block}
 .topbar-flag{font-size:20px}
-.steps-bar{background:#0b1d4f;padding:0 20px 16px;display:flex;align-items:center;gap:0;flex-shrink:0}
+
+/* ── STEP INDICATORS ── */
+.steps-bar{
+  background:#0b1d4f;
+  padding:0 20px 16px;
+  display:flex;align-items:center;gap:0;
+  flex-shrink:0;
+}
 .step-item{display:flex;align-items:center;flex:1}
-.step-dot{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;transition:all .3s}
+.step-dot{
+  width:24px;height:24px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:600;flex-shrink:0;
+  transition:all .3s;
+}
 .step-dot.done{background:#ffd200;color:#0b1d4f}
 .step-dot.active{background:#fff;color:#0b1d4f;box-shadow:0 0 0 3px rgba(255,255,255,.2)}
 .step-dot.pending{background:rgba(255,255,255,.12);color:rgba(255,255,255,.35)}
@@ -25,12 +46,35 @@ body{font-family:'Outfit',sans-serif;background:#0b1d4f;color:#111;display:flex;
 .step-line.done{background:#ffd200}
 .step-label{font-size:9px;color:rgba(255,255,255,.4);margin-top:3px;text-align:center;letter-spacing:.3px}
 .step-col{display:flex;flex-direction:column;align-items:center}
-.content{flex:1;overflow-y:auto;background:#eceae4;border-radius:20px 20px 0 0;padding:20px 16px}
+
+/* ── CONTENT AREA ── */
+.content{
+  flex:1;overflow-y:auto;
+  background:#eceae4;border-radius:20px 20px 0 0;
+  padding:20px 16px;
+}
 .content::-webkit-scrollbar{display:none}
-.bottombar{background:#fff;padding:12px 16px 20px;border-top:1px solid #eee;flex-shrink:0;display:flex;flex-direction:column;gap:8px;max-height:55vh;overflow-y:auto}
+
+/* ── BOTTOM BAR ── */
+.bottombar{
+  background:#fff;
+  padding:12px 16px 20px;
+  border-top:1px solid #eee;
+  flex-shrink:0;
+  display:flex;flex-direction:column;gap:8px;
+  max-height:55vh;
+  overflow-y:auto;
+}
+
+/* ── SCREENS ── */
 .screen{display:none}
 .screen.active{display:block}
-.prizes-intro{background:#0b1d4f;border-radius:16px;padding:16px;margin-bottom:16px;color:#fff}
+
+/* ── STEP 1: PAQUETES ── */
+.prizes-intro{
+  background:#0b1d4f;border-radius:16px;
+  padding:16px;margin-bottom:16px;color:#fff;
+}
 .prizes-intro-title{font-size:15px;font-weight:600;margin-bottom:12px;color:#ffd200}
 .prize-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.08)}
 .prize-row:last-child{border-bottom:none;padding-bottom:0}
@@ -41,30 +85,44 @@ body{font-family:'Outfit',sans-serif;background:#0b1d4f;color:#111;display:flex;
 .pr4{background:rgba(26,122,58,.25);color:#69f0ae}
 .prize-name{font-size:12px;font-weight:500;flex:1}
 .prize-date{font-size:10px;color:rgba(255,255,255,.4);white-space:nowrap}
+
 .mecanica{background:#fff;border-radius:12px;padding:12px 14px;font-size:12px;color:#666;line-height:1.6;margin-bottom:16px}
 .mecanica strong{color:#0b1d4f}
+
 .pack-cards{display:flex;flex-direction:column;gap:10px}
-.pack-card{background:#fff;border:2px solid #eee;border-radius:16px;padding:16px;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:space-between}
+.pack-card{
+  background:#fff;border:2px solid #eee;border-radius:16px;
+  padding:16px;cursor:pointer;transition:all .15s;
+  display:flex;align-items:center;justify-content:space-between;
+}
 .pack-card.sel{border-color:#0b1d4f;background:#f0f4ff}
+
 .pk-badge{background:#0b1d4f;color:#fff;font-size:9px;font-weight:600;padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:5px}
 .pk-name{font-size:15px;font-weight:600}
 .pk-desc{font-size:11px;color:#aaa;margin-top:2px}
 .pk-price{font-size:28px;font-weight:700;color:#0b1d4f}
 .pack-card.sel .pk-badge{background:#ffd200;color:#0b1d4f}
+
+/* ── STEP 2: NÚMEROS ── */
 .nums-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .nums-title{font-size:13px;font-weight:600}
 .nums-avail{font-size:11px;color:#888}
+
 .loading-nums{text-align:center;padding:2rem;color:#aaa;font-size:13px}
 .loading-spinner{display:inline-block;width:20px;height:20px;border:2px solid #ddd;border-top-color:#0b1d4f;border-radius:50%;animation:spin .8s linear infinite;margin-bottom:8px}
 @keyframes spin{to{transform:rotate(360deg)}}
+
 .bfil-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
 .bfil{font-size:11px;padding:4px 10px;border-radius:20px;border:1px solid #e0e0e0;background:#fff;color:#777;cursor:pointer;transition:all .12s}
 .bfil.on{color:#fff;border-color:transparent}
-.bfil.on.a1{background:#d93025}.bfil.on.a2{background:#1a56a8}.bfil.on.a3{background:#c8930a}.bfil.on.a4{background:#1a7a3a}
+.bfil.on.a0{background:#0b1d4f}.bfil.on.a1{background:#d93025}
+.bfil.on.a2{background:#1a56a8}.bfil.on.a3{background:#c8930a}.bfil.on.a4{background:#1a7a3a}
+
 .srch{position:relative;margin-bottom:12px}
 .srch svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#ccc;width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .srch input{width:100%;padding:9px 12px 9px 33px;border:1.5px solid #e5e5e5;border-radius:10px;font-size:13px;font-family:'Outfit',sans-serif;background:#fff;color:#111;outline:none;transition:border-color .15s}
 .srch input:focus{border-color:#0b1d4f}
+
 .ngrid{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:8px}
 .num{padding:7px 2px;font-size:11px;font-weight:500;border-radius:7px;border:1px solid #e5e5e5;background:#fff;color:#111;cursor:pointer;text-align:center;transition:all .1s;user-select:none}
 .num:hover:not(.vt):not(.vb){border-color:#0b1d4f;color:#0b1d4f}
@@ -72,28 +130,37 @@ body{font-family:'Outfit',sans-serif;background:#0b1d4f;color:#111;display:flex;
 .num.vt{background:#f0f0f0;color:#ccc;text-decoration:line-through;cursor:default;border-color:transparent}
 .num.vb{background:#fffbee;color:#b87800;border-color:#ffe080;cursor:pointer}
 .num.vb:hover{background:#fff3cc}
+
 .ley{display:flex;gap:10px;flex-wrap:wrap;font-size:10px;color:#aaa;margin-bottom:4px}
 .ldot{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:2px;vertical-align:middle}
+
+/* ── STEP 3: DATOS ── */
 .step-intro{background:#0b1d4f;border-radius:14px;padding:14px 16px;margin-bottom:16px}
 .step-intro p{color:rgba(255,255,255,.7);font-size:13px;line-height:1.5}
 .step-intro strong{color:#ffd200}
+
 .resumen-box{background:#fff;border-radius:12px;padding:12px 16px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
 .res-left{font-size:13px;color:#666}
 .res-left strong{color:#111;display:block;font-size:15px;margin-bottom:2px}
 .res-price{font-size:22px;font-weight:700;color:#0b1d4f}
+
 .inp-group{margin-bottom:14px}
 .inp-group label{font-size:10px;font-weight:600;color:#999;display:block;margin-bottom:5px;letter-spacing:1px;text-transform:uppercase}
 .inp-group input{width:100%;padding:12px 14px;border:1.5px solid #e5e5e5;border-radius:10px;font-size:15px;font-family:'Outfit',sans-serif;color:#111;outline:none;transition:border-color .15s;background:#fff}
 .inp-group input:focus{border-color:#0b1d4f}
+
+/* ── STEP 4: CONFIRMACIÓN ── */
 .confirm-box{text-align:center;padding:24px 16px}
 .confirm-icon{font-size:56px;margin-bottom:16px;display:block}
 .confirm-title{font-size:22px;font-weight:700;color:#0b1d4f;margin-bottom:8px}
 .confirm-sub{font-size:14px;color:#666;line-height:1.6;margin-bottom:24px}
-.confirm-detail{background:#fff;border-radius:14px;padding:16px;text-align:left;margin-bottom:16px}
+.confirm-detail{background:#fff;border-radius:14px;padding:16px;text-align:left;margin-bottom:20px}
 .cd-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f0f0f0;font-size:13px}
 .cd-row:last-child{border-bottom:none}
 .cd-label{color:#999}
 .cd-val{font-weight:600;color:#111}
+
+/* ── BOTONES ── */
 .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;border:none;border-radius:12px;font-size:15px;font-weight:600;font-family:'Outfit',sans-serif;cursor:pointer;transition:all .15s;text-decoration:none}
 .btn-primary{background:#0b1d4f;color:#fff}
 .btn-primary:hover{background:#0d2460}
@@ -104,30 +171,48 @@ body{font-family:'Outfit',sans-serif;background:#0b1d4f;color:#111;display:flex;
 .btn-wa:hover{opacity:.88}
 .btn-back{background:transparent;color:#888;font-size:13px;padding:8px;width:auto;margin:0 auto}
 .btn-back:hover{color:#333}
+
+.status-ok{background:#e8f5ec;color:#1a7a3a;border-radius:10px;padding:10px 14px;font-size:13px;display:none;align-items:center;gap:6px}
+.status-ok.show{display:flex}
 .status-err{background:#fde8e8;color:#c0241c;border-radius:10px;padding:10px 14px;font-size:13px;display:none;align-items:center;gap:6px}
 .status-err.show{display:flex}
+
 svg.ic{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+
 .pago-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
-.pago-opt{border:2px solid #eee;border-radius:12px;padding:14px 10px;text-align:center;cursor:pointer;transition:all .15s;background:#fff}
+.pago-opt{
+  border:2px solid #eee;border-radius:12px;padding:14px 10px;
+  text-align:center;cursor:pointer;transition:all .15s;
+  background:#fff;
+}
 .pago-opt:hover{border-color:#0b1d4f}
 .pago-opt.sel{border-color:#0b1d4f;background:#f0f4ff}
 .pago-opt-icon{font-size:24px;margin-bottom:4px}
 .pago-opt-name{font-size:12px;font-weight:500;color:#333}
 .pago-opt.sel .pago-opt-name{color:#0b1d4f}
+
+.cd-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f0f0f0;font-size:13px}
+.cd-row:last-child{border-bottom:none}
+.cd-label{color:#999}
+.cd-val{font-weight:600;color:#111}
 </style>
 </head>
 <body>
 
 <script>
+// ── CONFIGURACIÓN ─────────────────────────────────
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby7-TKz8i_WBK8TY1-V8sRJkz8KntRYIBq6q7GSfqVj1yMeAY4JDIUu2BC7gpMBeuvt/exec";
 const SHEETS_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRPK_roeQQ7LG-cZT0CA9kXNDWGFte7hwA5og76Lce8c887OZCRSb7O1N5pXVtZ9FxPwyY2s3F0r0E_/pub?output=csv";
 const MP_FULL    = "https://mpago.la/2QYXd4A";
 const MP_IND     = "https://mpago.la/2PJvmaF";
-const WA_NUMERO  = "59892823980"; // ← reemplazá con el número real
+const WA_NUMERO  = "59892823980";
 const INICIO = 30901, FIN = 31250;
+// ─────────────────────────────────────────────────
 </script>
 
 <div class="shell">
+
+  <!-- TOP BAR -->
   <div class="topbar">
     <div class="topbar-logo">
       <svg width="32" height="32" viewBox="0 0 88 88" fill="none">
@@ -140,64 +225,126 @@ const INICIO = 30901, FIN = 31250;
         <circle cx="44" cy="50" r="6" fill="#0b1d4f"/>
         <circle cx="44" cy="50" r="3" fill="#ffd200"/>
       </svg>
-      <div class="topbar-title">Bono Colaboración<small>Jamboree Mundial · Polonia 2027</small></div>
+      <div class="topbar-title">
+        Bono Colaboración
+        <small>Jamboree Mundial · Polonia 2027</small>
+      </div>
     </div>
     <div class="topbar-flag">🇺🇾</div>
   </div>
 
+  <!-- STEPS BAR -->
   <div class="steps-bar">
-    <div class="step-item"><div class="step-col"><div class="step-dot active" id="sd1">1</div><div class="step-label">Paquete</div></div><div class="step-line" id="sl1"></div></div>
-    <div class="step-item"><div class="step-col"><div class="step-dot pending" id="sd2">2</div><div class="step-label">Número</div></div><div class="step-line" id="sl2"></div></div>
-    <div class="step-item"><div class="step-col"><div class="step-dot pending" id="sd3">3</div><div class="step-label">Datos</div></div><div class="step-line" id="sl3"></div></div>
-    <div class="step-item" style="flex:0"><div class="step-col"><div class="step-dot pending" id="sd4">4</div><div class="step-label">Pago</div></div></div>
+    <div class="step-item">
+      <div class="step-col">
+        <div class="step-dot active" id="sd1">1</div>
+        <div class="step-label">Paquete</div>
+      </div>
+      <div class="step-line" id="sl1"></div>
+    </div>
+    <div class="step-item">
+      <div class="step-col">
+        <div class="step-dot pending" id="sd2">2</div>
+        <div class="step-label">Número</div>
+      </div>
+      <div class="step-line" id="sl2"></div>
+    </div>
+    <div class="step-item">
+      <div class="step-col">
+        <div class="step-dot pending" id="sd3">3</div>
+        <div class="step-label">Datos</div>
+      </div>
+      <div class="step-line" id="sl3"></div>
+    </div>
+    <div class="step-item" style="flex:0">
+      <div class="step-col">
+        <div class="step-dot pending" id="sd4">4</div>
+        <div class="step-label">Pago</div>
+      </div>
+    </div>
   </div>
 
+  <!-- CONTENT -->
   <div class="content" id="content">
 
-    <!-- STEP 1 -->
+    <!-- ══ STEP 1: PAQUETE ══ -->
     <div class="screen active" id="s1">
       <div class="prizes-intro">
         <div class="prizes-intro-title">🏆 Premios por sorteo</div>
-        <div class="prize-row"><span class="prize-bono pr1">Bono 1</span><span class="prize-name">📺 Smart TV 55" Panasonic</span><span class="prize-date">Jul 2026</span></div>
-        <div class="prize-row"><span class="prize-bono pr2">Bono 2</span><span class="prize-name">💻 Notebook PANAVOX i5</span><span class="prize-date">Oct 2026</span></div>
-        <div class="prize-row"><span class="prize-bono pr3">Bono 3</span><span class="prize-name">🛴 Scooter Eléctrico Xiaomi</span><span class="prize-date">Feb 2027</span></div>
-        <div class="prize-row"><span class="prize-bono pr4">Bono 4</span><span class="prize-name">🚲 Bicicleta Eléctrica S-Pro</span><span class="prize-date">Jun 2027</span></div>
+        <div class="prize-row">
+          <span class="prize-bono pr1">Bono 1</span>
+          <span class="prize-name">📺 Smart TV 55" Panasonic</span>
+          <span class="prize-date">Jul 2026</span>
+        </div>
+        <div class="prize-row">
+          <span class="prize-bono pr2">Bono 2</span>
+          <span class="prize-name">💻 Notebook PANAVOX i5</span>
+          <span class="prize-date">Oct 2026</span>
+        </div>
+        <div class="prize-row">
+          <span class="prize-bono pr3">Bono 3</span>
+          <span class="prize-name">🛴 Scooter Eléctrico Xiaomi</span>
+          <span class="prize-date">Feb 2027</span>
+        </div>
+        <div class="prize-row">
+          <span class="prize-bono pr4">Bono 4</span>
+          <span class="prize-name">🚲 Bicicleta Eléctrica S-Pro</span>
+          <span class="prize-date">Jun 2027</span>
+        </div>
       </div>
-      <div class="mecanica"><strong>¿Cómo ganás?</strong> Si las 5 cifras de tu número coinciden con el 1.er premio de la <strong>Lotería Uruguaya</strong> del mes del sorteo, ¡el premio es tuyo! Podés ganar en varios meses con el mismo número.</div>
+
+      <div class="mecanica">
+        <strong>¿Cómo ganás?</strong> Si las 5 cifras de tu número coinciden con el 1.er premio de la <strong>Lotería Uruguaya</strong> del mes del sorteo, ¡el premio es tuyo! Podés ganar en varios meses con el mismo número.
+      </div>
+
       <div class="pack-cards">
         <div class="pack-card" id="pk-full" onclick="selPack('full')">
-          <div><div class="pk-badge">★ Mejor opción</div><div class="pk-name">Rifa completa</div><div class="pk-desc">Los 4 bonos · 4 chances de ganar</div></div>
+          <div>
+            <div class="pk-badge">★ Mejor opción</div>
+            <div class="pk-name">Rifa completa</div>
+            <div class="pk-desc">Los 4 bonos · 4 chances de ganar</div>
+          </div>
           <div class="pk-price">$500</div>
         </div>
         <div class="pack-card" id="pk-ind" onclick="selPack('ind')">
-          <div><div class="pk-name">Bono individual</div><div class="pk-desc">Elegís el sorteo que preferís</div></div>
+          <div>
+            <div class="pk-name">Bono individual</div>
+            <div class="pk-desc">Elegís el sorteo que preferís</div>
+          </div>
           <div class="pk-price">$125</div>
         </div>
       </div>
     </div>
 
-    <!-- STEP 2 -->
+    <!-- ══ STEP 2: NÚMERO ══ -->
     <div class="screen" id="s2">
       <div id="bfil-wrap" style="display:none;margin-bottom:12px">
-        <div style="font-size:11px;color:#999;margin-bottom:6px;font-weight:500">Elegí el sorteo:</div>
+        <div style="font-size:11px;color:#999;margin-bottom:6px;font-weight:500">Mostrar disponibles para:</div>
         <div class="bfil-row">
+          
           <button class="bfil a1" onclick="selBono(1,this)">Bono 1 · Jul</button>
           <button class="bfil a2" onclick="selBono(2,this)">Bono 2 · Oct</button>
           <button class="bfil a3" onclick="selBono(3,this)">Bono 3 · Feb</button>
           <button class="bfil a4" onclick="selBono(4,this)">Bono 4 · Jun</button>
         </div>
       </div>
+
       <div class="srch">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         <input type="number" id="srchIn" placeholder="Buscar número..." min="30901" max="31250" oninput="renderGrid()">
       </div>
+
       <div class="nums-header">
-        <span class="nums-title">Números disponibles</span>
+        <span class="nums-title" id="nums-title">Números disponibles</span>
         <span class="nums-avail" id="nums-avail"></span>
       </div>
+
       <div id="ngrid" class="ngrid">
-        <div class="loading-nums" style="grid-column:1/-1"><div class="loading-spinner"></div><br>Cargando disponibilidad...</div>
+        <div class="loading-nums" style="grid-column:1/-1">
+          <div class="loading-spinner"></div><br>Cargando disponibilidad...
+        </div>
       </div>
+
       <div class="ley">
         <span><span class="ldot" style="background:#fff;border:1px solid #ddd"></span>Disponible</span>
         <span><span class="ldot" style="background:#0b1d4f"></span>Elegido</span>
@@ -206,9 +353,11 @@ const INICIO = 30901, FIN = 31250;
       </div>
     </div>
 
-    <!-- STEP 3 -->
+    <!-- ══ STEP 3: DATOS ══ -->
     <div class="screen" id="s3">
-      <div class="step-intro"><p>Registramos tu compra para que quede guardada. <strong>Completá tus datos</strong> y elegí cómo querés pagar.</p></div>
+      <div class="step-intro">
+        <p>Registramos tu compra para que quede guardada. <strong>Completá tus datos</strong> y elegí cómo querés pagar.</p>
+      </div>
       <div class="resumen-box" id="resumen"></div>
       <div class="inp-group">
         <label>Nombre completo</label>
@@ -216,7 +365,7 @@ const INICIO = 30901, FIN = 31250;
       </div>
       <div class="inp-group">
         <label>Teléfono / WhatsApp</label>
-        <input type="tel" id="inp-tel" placeholder="Ej: 0 123 456" oninput="checkDatos()">
+        <input type="tel" id="inp-tel" placeholder="Ej: 099 123 456" oninput="checkDatos()">
       </div>
       <div class="inp-group">
         <label>Medio de pago</label>
@@ -231,127 +380,192 @@ const INICIO = 30901, FIN = 31250;
           </div>
         </div>
       </div>
-      <div class="status-err" id="st-err"></div>
+      <div class="status-err" id="st-err">⚠️ No se pudo registrar. Intentá de nuevo.</div>
     </div>
 
-    <!-- STEP 4 -->
+    <!-- ══ STEP 4: PAGO ══ -->
     <div class="screen" id="s4">
       <div class="confirm-box">
         <span class="confirm-icon">✅</span>
         <div class="confirm-title">¡Registrado!</div>
         <div class="confirm-sub">Tu compra quedó guardada. Completá el pago y enviá el comprobante por WhatsApp.</div>
         <div class="confirm-detail" id="confirm-detail"></div>
-        <div id="transf-info" style="display:none;background:#f7f6f2;border-radius:14px;padding:16px;text-align:left;margin-bottom:4px;width:100%">
+
+        <!-- TRANSFERENCIA INFO -->
+        <div id="transf-info" style="display:none;background:#f7f6f2;border-radius:14px;padding:16px;text-align:left;margin-bottom:16px;width:100%">
           <div style="font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#aaa;margin-bottom:12px">Datos para transferencia</div>
           <!-- ✏️ REEMPLAZÁ CON TUS DATOS BANCARIOS -->
-          <div class="cd-row"><span class="cd-label">Banco</span><span class="cd-val">TU BANCO</span></div>
-          <div class="cd-row"><span class="cd-label">Titular</span><span class="cd-val">NOMBRE TITULAR</span></div>
-          <div class="cd-row"><span class="cd-label">CI</span><span class="cd-val">X.XXX.XXX-X</span></div>
-          <div class="cd-row"><span class="cd-label">Cuenta</span><span class="cd-val">XXXXXXXX</span></div>
+          <div class="cd-row"><span class="cd-label">Banco</span><span class="cd-val">BBVA</span></div>
+          <div class="cd-row"><span class="cd-label">Titular</span><span class="cd-val">Catalina Vaz Martins</span></div>
+          <div class="cd-row"><span class="cd-label">Cuenta</span><span class="cd-val">8773517</span></div>
           <div class="cd-row" style="border:none"><span class="cd-label">Monto</span><span class="cd-val" id="transf-monto" style="color:#0b1d4f"></span></div>
           <!-- ✏️ FIN DATOS BANCARIOS -->
         </div>
       </div>
     </div>
 
+  </div><!-- /content -->
+
+  <!-- BOTTOM BAR -->
+  <div class="bottombar" id="bottombar">
+    <!-- se rellena por JS según el paso -->
   </div>
 
-  <div class="bottombar" id="bottombar"></div>
-</div>
+</div><!-- /shell -->
 
 <script>
-let modoPack='full', filtBono=0, selNum=null;
-let nombre='', telefono='', medioPago='';
-let VENDIDOS={};
-let enviando=false;
+let modoPack = 'full', filtBono = 0, selNum = null;
+let nombre = '', telefono = '', medioPago = '';
+let VENDIDOS = {}; // se carga desde Sheets
+let currentStep = 1;
+let enviando = false;
 
+// ── Cargar vendidos desde Sheets ──
 async function cargarVendidos(){
-  try{
-    const r=await fetch(SHEETS_CSV+'&t='+Date.now());
-    const txt=await r.text();
-    const rows=txt.trim().split('\n').slice(1);
-    const v={};
-    rows.forEach(row=>{
-      const cols=row.split(',');
-      const num=parseInt((cols[3]||'').trim());
-      if(!num||num<INICIO||num>FIN) return;
-      if(!v[num]) v[num]=[];
-      const paquete=(cols[4]||'').toLowerCase().trim();
-      const bono=(cols[5]||'').trim();
-      if(paquete.includes('completa')||bono.toLowerCase().includes('todos')||bono.includes('1,2,3,4')){
-        v[num]=[1,2,3,4];
+  try {
+    const r = await fetch(SHEETS_CSV + '&t=' + Date.now());
+    const txt = await r.text();
+    // Parsear CSV respetando comas dentro de comillas
+    const rows = txt.trim().split('\n').slice(1);
+    const v = {};
+    rows.forEach(row => {
+      // split simple por coma — funciona para nuestro formato
+      const cols = row.split(',');
+      // cols: 0=Fecha, 1=Nombre, 2=Telefono, 3=Numero, 4=Paquete, 5=Bono, 6=Estado
+      const num = parseInt((cols[3]||'').trim());
+      if (!num || num < INICIO || num > FIN) return;
+      if (!v[num]) v[num] = [];
+
+      const paquete = (cols[4]||'').toLowerCase().trim();
+      const bono    = (cols[5]||'').trim();
+
+      if (paquete.includes('completa') || bono.toLowerCase().includes('todos') || bono.includes('1,2,3,4')) {
+        // Rifa completa — marcar todos los bonos
+        v[num] = [1,2,3,4];
       } else {
-        const b=parseInt(bono);
-        if(b>=1&&b<=4&&!v[num].includes(b)) v[num].push(b);
+        // Bono individual — marcar solo ese bono (ej: "1", "2", "3", "4")
+        const b = parseInt(bono);
+        if (b >= 1 && b <= 4 && !v[num].includes(b)) v[num].push(b);
       }
     });
-    VENDIDOS=v;
-  }catch(e){ VENDIDOS={}; }
+    VENDIDOS = v;
+    console.log('Vendidos cargados:', VENDIDOS);
+  } catch(e) {
+    console.warn('No se pudo cargar Sheets:', e);
+    VENDIDOS = {};
+  }
   renderGrid();
+  updateAvail();
 }
 
 function libres(n){return[1,2,3,4].filter(b=>!(VENDIDOS[n]||[]).includes(b))}
 function completo(n){return libres(n).length===0}
 function parcial(n){const v=VENDIDOS[n]||[];return v.length>0&&v.length<4}
 
+// ── STEP NAVIGATION ──
 function goStep(n){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('s'+n).classList.add('active');
   document.getElementById('content').scrollTop=0;
+  currentStep = n;
   updateStepBar(n);
   updateBottomBar(n);
-  if(n===2) document.getElementById('bfil-wrap').style.display=modoPack==='ind'?'block':'none';
-  if(n===3){buildResumen();checkDatos();}
 }
 
 function updateStepBar(n){
   for(let i=1;i<=4;i++){
-    const dot=document.getElementById('sd'+i);
-    dot.className='step-dot '+(i<n?'done':i===n?'active':'pending');
-    dot.textContent=i<n?'✓':i;
-    if(i<4) document.getElementById('sl'+i).className='step-line'+(i<n?' done':'');
-  }
-}
-
-function updateBottomBar(n){
-  const bb=document.getElementById('bottombar');
-  if(n===1){
-    bb.innerHTML=`<button class="btn btn-primary off" id="btn1" onclick="goStep(2)">Elegir número →</button><div style="font-size:11px;color:#bbb;text-align:center">Seleccioná un paquete para continuar</div>`;
-  } else if(n===2){
-    bb.innerHTML=`<button class="btn btn-primary off" id="btn2" onclick="goStep(3)">Continuar con mis datos →</button><button class="btn btn-back" onclick="goStep(1)">← Volver</button>`;
-  } else if(n===3){
-    bb.innerHTML=`<div class="status-err" id="st-err2"></div><button class="btn btn-primary off" id="btn3" onclick="confirmarYPagar()">Registrar y pagar →</button><button class="btn btn-back" onclick="goStep(2)">← Volver</button>`;
-  } else if(n===4){
-    const precio=modoPack==='full'?'$500':'$125';
-    const paqueteLabel=modoPack==='full'?'Rifa completa ($500)':'Bono '+(filtBono||'?')+' ($125)';
-    const waMsg=encodeURIComponent('Hola Feli! Te mando mi comprobante de pago 👇\n\n🏕️ *Bono Colaboración — Jamboree Polonia 2027*\n👤 '+nombre+'\n📱 '+telefono+'\n🎟️ #'+selNum+'\n💰 '+paqueteLabel);
-    const waUrl=`https://wa.me/${WA_NUMERO}?text=${waMsg}`;
-    const aviso=`<div style="background:#fff8e8;border-radius:10px;padding:10px 14px;font-size:12px;color:#7a5000;line-height:1.5;text-align:center">Cuando recibamos tu comprobante nos ponemos en contacto para <strong>hacerte llegar el bono físico</strong>. 🎟️</div>`;
-    const btnWA=`<a href="${waUrl}" target="_blank" class="btn btn-wa">📎 Enviar comprobante por WhatsApp</a>`;
-    if(medioPago==='mp'){
-      const ti=document.getElementById('transf-info');
-      if(ti) ti.style.display='none';
-      const mpUrl=modoPack==='full'?MP_FULL:MP_IND;
-      bb.innerHTML=`<a href="${mpUrl}" target="_blank" class="btn btn-mp">💳 Pagar con Mercado Pago</a>${aviso}${btnWA}`;
-    } else {
-      const ti=document.getElementById('transf-info');
-      if(ti){ti.style.display='block';const tm=document.getElementById('transf-monto');if(tm)tm.textContent=precio;}
-      bb.innerHTML=`${aviso}${btnWA}`;
+    const dot = document.getElementById('sd'+i);
+    dot.className = 'step-dot ' + (i<n?'done':i===n?'active':'pending');
+    dot.textContent = i<n ? '✓' : i;
+    if(i<4){
+      const line = document.getElementById('sl'+i);
+      line.className = 'step-line' + (i<n?' done':'');
     }
   }
 }
 
+function updateBottomBar(n){
+  const bb = document.getElementById('bottombar');
+  if(n===1){
+    bb.innerHTML = `
+      <button class="btn btn-primary off" id="btn1" onclick="goStep(2)">
+        Elegir número →
+      </button>
+      <div style="font-size:11px;color:#bbb;text-align:center">Seleccioná un paquete para continuar</div>`;
+  } else if(n===2){
+    bb.innerHTML = `
+      <button class="btn btn-primary off" id="btn2" onclick="goStep(3)">
+        Continuar con mis datos →
+      </button>
+      <button class="btn btn-back" onclick="goStep(1)">← Volver</button>`;
+  } else if(n===3){
+    bb.innerHTML = `
+      <div class="status-err" id="st-err2"></div>
+      <button class="btn btn-primary off" id="btn3" onclick="confirmarYPagar()">
+        Registrar y pagar →
+      </button>
+      <button class="btn btn-back" onclick="goStep(2)">← Volver</button>`;
+  } else if(n===4){
+    const precio = modoPack==='full' ? '$500' : '$125';
+    const paqueteLabel = modoPack==='full'?'Rifa completa ($500)':'Bono '+(filtBono||'?')+' ($125)';
+    const waMsg = encodeURIComponent(
+      'Hola Feli! Te mando mi comprobante de pago 👇\n\n'+
+      '🏕️ *Bono Colaboración — Jamboree Polonia 2027*\n'+
+      '👤 '+nombre+'\n📱 '+telefono+'\n🎟️ #'+selNum+'\n'+
+      '💰 '+paqueteLabel
+    );
+    const waUrl = `https://wa.me/${WA_NUMERO}?text=${waMsg}`;
+
+    if(medioPago==='mp'){
+      const mpUrl = modoPack==='full' ? MP_FULL : MP_IND;
+      const ti = document.getElementById('transf-info');
+      if(ti) ti.style.display='none';
+      bb.innerHTML = `
+        <a href="${mpUrl}" target="_blank" class="btn btn-mp">
+          💳 Pagar con Mercado Pago
+        </a>
+        <div style="background:#fff8e8;border-radius:10px;padding:10px 14px;font-size:12px;color:#7a5000;line-height:1.5;text-align:center">
+          Una vez pagado, <strong>enviá el comprobante por WhatsApp</strong>. Cuando lo recibamos nos ponemos en contacto para hacerte llegar el bono físico. 🎟️
+        </div>
+        <a href="${waUrl}" target="_blank" class="btn btn-wa">
+          📎 Enviar comprobante por WhatsApp
+        </a>`;
+    } else {
+      // mostrar datos bancarios en el content
+      const ti = document.getElementById('transf-info');
+      if(ti){
+        ti.style.display='block';
+        const tm = document.getElementById('transf-monto');
+        if(tm) tm.textContent = precio;
+      }
+      bb.innerHTML = `
+        <div style="background:#fff8e8;border-radius:10px;padding:10px 14px;font-size:12px;color:#7a5000;line-height:1.5;text-align:center">
+          📋 Realizá la transferencia con los datos de arriba y <strong>enviá el comprobante por WhatsApp</strong>. Cuando lo recibamos nos ponemos en contacto para hacerte llegar el bono físico. 🎟️
+        </div>
+        <a href="${waUrl}" target="_blank" class="btn btn-wa">
+          📎 Enviar comprobante por WhatsApp
+        </a>`;
+    }
+  }
+}
+
+// ── PACK ──
 function selPack(p){
   modoPack=p; selNum=null;
-  if(p==='ind'){filtBono=0;document.querySelectorAll('.bfil').forEach(x=>x.classList.remove('on'));}
+  if(p==='ind') filtBono=0; // resetear filtro al cambiar a individual
   document.getElementById('pk-full').classList.toggle('sel',p==='full');
   document.getElementById('pk-ind').classList.toggle('sel',p==='ind');
-  document.getElementById('bfil-wrap').style.display=p==='ind'?'block':'none';
-  const btn=document.getElementById('btn1');
+  document.getElementById('bfil-wrap').style.display = p==='ind'?'block':'none';
+  // en individual, resetear selección de bono visual
+  if(p==='ind'){
+    document.querySelectorAll('.bfil').forEach(x=>x.classList.remove('on'));
+  }
+  const btn = document.getElementById('btn1');
   if(btn) btn.classList.remove('off');
   renderGrid();
 }
 
+// ── BONO FILTER ──
 function selBono(b,el){
   filtBono=b; selNum=null;
   document.querySelectorAll('.bfil').forEach(x=>x.classList.remove('on'));
@@ -361,35 +575,52 @@ function selBono(b,el){
   if(btn) btn.classList.add('off');
 }
 
+// ── GRID ──
 function renderGrid(){
   const grid=document.getElementById('ngrid');
   if(!grid) return;
-  if(modoPack==='ind'&&filtBono===0){
+
+  // En modo individual, obligar a elegir bono primero
+  if(modoPack==='ind' && filtBono===0){
     grid.innerHTML='<div style="grid-column:1/-1;padding:2rem;text-align:center;font-size:13px;color:#aaa;">👆 Elegí un bono arriba para ver los números disponibles</div>';
     const el=document.getElementById('nums-avail');
     if(el) el.textContent='';
     return;
   }
+
   const busq=(document.getElementById('srchIn')||{}).value||'';
-  grid.innerHTML=''; let avail=0;
+  grid.innerHTML=''; let cnt=0, avail=0;
+
   for(let n=INICIO;n<=FIN;n++){
     if(busq&&!String(n).includes(busq.trim())) continue;
-    const c=completo(n),p=parcial(n);
-    let cls='num',dis=false;
+    const c=completo(n), p=parcial(n);
+    let cls='num', dis=false;
     if(modoPack==='full'){
-      if(c){cls+=' vt';dis=true} else {avail++;if(p) cls+=' vb';}
+      // tachado si vendido completo
+      if(c){cls+=' vt';dis=true} else {avail++; if(p) cls+=' vb';}
     } else {
-      if(c||(VENDIDOS[n]||[]).includes(filtBono)){cls+=' vt';dis=true}
-      else {avail++;if(p) cls+=' vb';}
+      const ba=filtBono;
+      // tachado si: vendido completo O ese bono específico ya vendido
+      if(c || (VENDIDOS[n]||[]).includes(ba)){cls+=' vt';dis=true}
+      else {avail++; if(p) cls+=' vb';}
     }
     if(selNum===n) cls+=' sel';
     const btn=document.createElement('button');
     btn.className=cls; btn.textContent=n;
     if(!dis) btn.onclick=()=>pickNum(n);
-    grid.appendChild(btn);
+    grid.appendChild(btn); cnt++;
+  }
+  if(!cnt){
+    const d=document.createElement('div');
+    d.style.cssText='grid-column:1/-1;padding:2rem;text-align:center;font-size:13px;color:#ccc';
+    d.textContent='Sin resultados'; grid.appendChild(d);
   }
   const el=document.getElementById('nums-avail');
   if(el) el.textContent=avail+' disponibles';
+}
+
+function updateAvail(){
+  renderGrid();
 }
 
 function pickNum(n){
@@ -399,8 +630,9 @@ function pickNum(n){
   if(btn) btn.classList.toggle('off',!selNum);
 }
 
+// ── DATOS ──
 function selPago(tipo){
-  medioPago=tipo;
+  medioPago = tipo;
   document.querySelectorAll('.pago-opt').forEach(x=>x.classList.remove('sel'));
   document.getElementById('opt-'+tipo).classList.add('sel');
   checkDatos();
@@ -413,10 +645,17 @@ function checkDatos(){
   if(btn) btn.classList.toggle('off',!nombre||!telefono||!medioPago);
 }
 
+// ── RESUMEN ──
 function buildResumen(){
   const paquete=modoPack==='full'?'Rifa completa (4 bonos)':'Bono '+(filtBono||'individual');
   const precio=modoPack==='full'?'$500':'$125';
-  document.getElementById('resumen').innerHTML=`<div class="res-left"><strong>#${selNum}</strong>${paquete}</div><div class="res-price">${precio}</div>`;
+  document.getElementById('resumen').innerHTML=`
+    <div class="res-left">
+      <strong>#${selNum}</strong>
+      ${paquete}
+    </div>
+    <div class="res-price">${precio}</div>`;
+
   document.getElementById('confirm-detail').innerHTML=`
     <div class="cd-row"><span class="cd-label">Número</span><span class="cd-val">#${selNum}</span></div>
     <div class="cd-row"><span class="cd-label">Paquete</span><span class="cd-val">${paquete}</span></div>
@@ -425,25 +664,31 @@ function buildResumen(){
     <div class="cd-row"><span class="cd-label">Precio</span><span class="cd-val">${precio}</span></div>`;
 }
 
+// ── CONFIRMAR Y PAGAR ──
 async function confirmarYPagar(){
   if(enviando) return;
   nombre=document.getElementById('inp-nombre').value.trim();
   telefono=document.getElementById('inp-tel').value.trim();
-  if(!nombre||!telefono||!selNum||!medioPago) return;
+  if(!nombre||!telefono||!selNum) return;
+
   enviando=true;
   const btn=document.getElementById('btn3');
-  if(btn){btn.classList.add('off');btn.textContent='Registrando...';}
-  const payload={nombre,telefono,numero:selNum,
-    paquete:modoPack==='full'?'Rifa completa ($500)':'Bono individual ($125)',
-    bono:modoPack==='ind'?(filtBono||'sin especificar'):'Todos (1,2,3,4)',
-    medioPago:medioPago==='mp'?'Mercado Pago':'Transferencia'
+  if(btn){btn.classList.add('off'); btn.textContent='Registrando...';}
+
+  const payload={
+    nombre, telefono, numero:selNum,
+    paquete: modoPack==='full'?'Rifa completa ($500)':'Bono individual ($125)',
+    bono: modoPack==='ind'?(filtBono||'sin especificar'):'Todos (1,2,3,4)',
+    medioPago: medioPago==='mp'?'Mercado Pago':'Transferencia'
   };
-  try{
+
+  try {
     await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    // Actualizar confirm
     document.getElementById('cd-nombre').textContent=nombre;
     document.getElementById('cd-tel').textContent=telefono;
     goStep(4);
-  }catch(e){
+  } catch(e){
     const err=document.getElementById('st-err2');
     if(err){err.textContent='⚠️ No se pudo registrar. Intentá de nuevo.';err.classList.add('show');}
     if(btn){btn.classList.remove('off');btn.textContent='Registrar y pagar →';}
@@ -451,6 +696,18 @@ async function confirmarYPagar(){
   enviando=false;
 }
 
+// ── OVERRIDE goStep para setup ──
+const _goStep = goStep;
+window.goStep = function(n){
+  if(n===2){
+    document.getElementById('bfil-wrap').style.display = modoPack==='ind'?'block':'none';
+  }
+  if(n===3) buildResumen();
+  _goStep(n);
+  if(n===3) checkDatos();
+};
+
+// ── INIT ──
 updateBottomBar(1);
 cargarVendidos();
 </script>
