@@ -150,11 +150,7 @@ body{font-family:'Outfit',sans-serif;background:#0b1d4f;color:#111;display:flex;
 .inp-group input:focus{border-color:#0b1d4f}
 
 /* ── STEP 4: CONFIRMACIÓN ── */
-.confirm-box{text-align:center;padding:24px 16px}
-.confirm-icon{font-size:56px;margin-bottom:16px;display:block}
-.confirm-title{font-size:22px;font-weight:700;color:#0b1d4f;margin-bottom:8px}
-.confirm-sub{font-size:14px;color:#666;line-height:1.6;margin-bottom:24px}
-.confirm-detail{background:#fff;border-radius:14px;padding:16px;text-align:left;margin-bottom:20px}
+.confirm-detail{background:#fff;border-radius:14px;padding:14px 16px;text-align:left;margin-bottom:10px}
 .cd-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f0f0f0;font-size:13px}
 .cd-row:last-child{border-bottom:none}
 .cd-label{color:#999}
@@ -386,18 +382,20 @@ const INICIO = 30901, FIN = 31250;
     <!-- ══ STEP 4: PAGO ══ -->
     <div class="screen" id="s4">
       <div class="confirm-box">
-        <span class="confirm-icon">✅</span>
-        <div class="confirm-title">¡Registrado!</div>
-        <div class="confirm-sub">Tu compra quedó guardada. Completá el pago y enviá el comprobante por WhatsApp.</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <span style="font-size:20px">✅</span>
+          <div style="font-size:19px;font-weight:700;color:#0b1d4f">¡Registrado!</div>
+        </div>
+        <div style="font-size:12px;color:#999;margin-bottom:12px">Tu compra quedó guardada. Completá el pago y enviá el comprobante.</div>
         <div class="confirm-detail" id="confirm-detail"></div>
 
         <!-- TRANSFERENCIA INFO -->
-        <div id="transf-info" style="display:none;background:#f7f6f2;border-radius:14px;padding:16px;text-align:left;margin-bottom:16px;width:100%">
+        <div id="transf-info" style="display:none;background:#f7f6f2;border-radius:14px;padding:14px 16px;text-align:left;margin-bottom:8px;width:100%">
           <div style="font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#aaa;margin-bottom:12px">Datos para transferencia</div>
           <!-- ✏️ REEMPLAZÁ CON TUS DATOS BANCARIOS -->
           <div class="cd-row"><span class="cd-label">Banco</span><span class="cd-val">BBVA</span></div>
           <div class="cd-row"><span class="cd-label">Titular</span><span class="cd-val">Catalina Vaz Martins</span></div>
-          <div class="cd-row"><span class="cd-label">Cuenta</span><span class="cd-val">8773517</span></div>
+          <div class="cd-row"><span class="cd-label">Cuenta</span><span class="cd-val">9773517</span></div>
           <div class="cd-row" style="border:none"><span class="cd-label">Monto</span><span class="cd-val" id="transf-monto" style="color:#0b1d4f"></span></div>
           <!-- ✏️ FIN DATOS BANCARIOS -->
         </div>
@@ -521,15 +519,9 @@ function updateBottomBar(n){
       const ti = document.getElementById('transf-info');
       if(ti) ti.style.display='none';
       bb.innerHTML = `
-        <a href="${mpUrl}" target="_blank" class="btn btn-mp">
-          💳 Pagar con Mercado Pago
-        </a>
-        <div style="background:#fff8e8;border-radius:10px;padding:10px 14px;font-size:12px;color:#7a5000;line-height:1.5;text-align:center">
-          Una vez pagado, <strong>enviá el comprobante por WhatsApp</strong>. Cuando lo recibamos nos ponemos en contacto para hacerte llegar el bono físico. 🎟️
-        </div>
-        <a href="${waUrl}" target="_blank" class="btn btn-wa">
-          📎 Enviar comprobante por WhatsApp
-        </a>`;
+        <a href="${mpUrl}" target="_blank" class="btn btn-mp" style="padding:12px">💳 Pagar con Mercado Pago</a>
+        <div style="font-size:11px;color:#999;text-align:center">Cuando recibamos el comprobante te enviamos el bono físico 🎟️</div>
+        <a href="${waUrl}" target="_blank" class="btn btn-wa" style="padding:12px">📎 Enviar comprobante por WhatsApp</a>`;
     } else {
       // mostrar datos bancarios en el content
       const ti = document.getElementById('transf-info');
@@ -539,12 +531,8 @@ function updateBottomBar(n){
         if(tm) tm.textContent = precio;
       }
       bb.innerHTML = `
-        <div style="background:#fff8e8;border-radius:10px;padding:10px 14px;font-size:12px;color:#7a5000;line-height:1.5;text-align:center">
-          📋 Realizá la transferencia con los datos de arriba y <strong>enviá el comprobante por WhatsApp</strong>. Cuando lo recibamos nos ponemos en contacto para hacerte llegar el bono físico. 🎟️
-        </div>
-        <a href="${waUrl}" target="_blank" class="btn btn-wa">
-          📎 Enviar comprobante por WhatsApp
-        </a>`;
+        <div style="font-size:11px;color:#999;text-align:center">Cuando recibamos el comprobante te enviamos el bono físico 🎟️</div>
+        <a href="${waUrl}" target="_blank" class="btn btn-wa" style="padding:12px">📎 Enviar comprobante por WhatsApp</a>`;
     }
   }
 }
