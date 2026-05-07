@@ -386,7 +386,7 @@ const INICIO = 30901, FIN = 31250;
           <span style="font-size:20px">✅</span>
           <div style="font-size:19px;font-weight:700;color:#0b1d4f">¡Registrado!</div>
         </div>
-        <div style="font-size:12px;color:#999;margin-bottom:12px">Tu compra quedó guardada. Completá el pago y enviá el comprobante.</div>
+        <div style="font-size:13px;color:#0b1d4f;font-weight:600;margin-bottom:12px">Tu compra quedó guardada. Completá el pago y enviá el comprobante.</div>
         <div class="confirm-detail" id="confirm-detail"></div>
 
         <!-- TRANSFERENCIA INFO -->
@@ -520,7 +520,7 @@ function updateBottomBar(n){
       if(ti) ti.style.display='none';
       bb.innerHTML = `
         <a href="${mpUrl}" target="_blank" class="btn btn-mp" style="padding:12px">💳 Pagar con Mercado Pago</a>
-        <div style="font-size:11px;color:#999;text-align:center">Cuando recibamos el comprobante te enviamos el bono físico 🎟️</div>
+        <div style="font-size:12px;color:#0b1d4f;font-weight:600;text-align:center">Cuando recibamos el comprobante te enviamos el bono físico</div>
         <a href="${waUrl}" target="_blank" class="btn btn-wa" style="padding:12px">📎 Enviar comprobante por WhatsApp</a>`;
     } else {
       // mostrar datos bancarios en el content
@@ -531,7 +531,7 @@ function updateBottomBar(n){
         if(tm) tm.textContent = precio;
       }
       bb.innerHTML = `
-        <div style="font-size:11px;color:#999;text-align:center">Cuando recibamos el comprobante te enviamos el bono físico 🎟️</div>
+        <div style="font-size:12px;color:#0b1d4f;font-weight:600;text-align:center">Cuando recibamos el comprobante te enviamos el bono físico</div>
         <a href="${waUrl}" target="_blank" class="btn btn-wa" style="padding:12px">📎 Enviar comprobante por WhatsApp</a>`;
     }
   }
@@ -657,12 +657,40 @@ async function confirmarYPagar(){
   if(enviando) return;
   nombre=document.getElementById('inp-nombre').value.trim();
   telefono=document.getElementById('inp-tel').value.trim();
-  if(!nombre||!telefono||!selNum) return;
+  if(!nombre||!telefono||!selNum||!medioPago) return;
 
   enviando=true;
   const btn=document.getElementById('btn3');
-  if(btn){btn.classList.add('off'); btn.textContent='Registrando...';}
+  const err=document.getElementById('st-err2');
+  if(btn){btn.classList.add('off'); btn.textContent='Verificando disponibilidad...';}
+  if(err) err.classList.remove('show');
 
+  // 1. Refrescar disponibilidad desde Sheets antes de registrar
+  await cargarVendidos();
+
+  // 2. Verificar que el número siga disponible
+  let bloqueado = false;
+  if(modoPack==='full'){
+    bloqueado = completo(selNum);
+  } else {
+    bloqueado = completo(selNum) || (VENDIDOS[selNum]||[]).includes(filtBono);
+  }
+
+  if(bloqueado){
+    if(err){
+      err.textContent='⚠️ Este número ya fue tomado mientras completabas el formulario. Elegí otro.';
+      err.classList.add('show');
+    }
+    if(btn){btn.classList.remove('off'); btn.textContent='Registrar y pagar →';}
+    enviando=false;
+    // Volver al paso 2 para elegir otro número
+    selNum=null;
+    setTimeout(()=>{ goStep(2); }, 2000);
+    return;
+  }
+
+  // 3. Registrar en Sheets
+  if(btn) btn.textContent='Registrando...';
   const payload={
     nombre, telefono, numero:selNum,
     paquete: modoPack==='full'?'Rifa completa ($500)':'Bono individual ($125)',
@@ -672,12 +700,10 @@ async function confirmarYPagar(){
 
   try {
     await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-    // Actualizar confirm
     document.getElementById('cd-nombre').textContent=nombre;
     document.getElementById('cd-tel').textContent=telefono;
     goStep(4);
   } catch(e){
-    const err=document.getElementById('st-err2');
     if(err){err.textContent='⚠️ No se pudo registrar. Intentá de nuevo.';err.classList.add('show');}
     if(btn){btn.classList.remove('off');btn.textContent='Registrar y pagar →';}
   }
